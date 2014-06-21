@@ -1,0 +1,8 @@
+house
+cat
+dog
+fish
+car
+tretas
+queen
+vôlei

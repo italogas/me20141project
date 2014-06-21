@@ -7,23 +7,23 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.br.italogas.me20141.project.DicionarioListImpl;
+import com.br.italogas.me20141project.main.DicionarioListImpl;
 
-public class TestaDicionario {
+public class TestaDicionarioListImpl {
 
-	private DicionarioListImpl dic;
+	private DicionarioListImpl<String, String> dic;
 	
 	@Before
 	public void setUp() throws Exception {
-		dic = new DicionarioListImpl();
-		dic.inserir("ABACO");
-		dic.inserir("ABC");
-		dic.inserir("JEBAS");
+		dic = new DicionarioListImpl<String, String>();
+		dic.inserir("ABACO", "");
+		dic.inserir("ABC", "");
+		dic.inserir("JEBAS", "");
 	}
 
 	@Test
 	public void testaInicializacao(){
-		DicionarioListImpl dic2 = new DicionarioListImpl();
+		DicionarioListImpl<String, String> dic2 = new DicionarioListImpl<String, String>();
 		assertEquals(0, dic2.size());
 	}
 	
@@ -31,25 +31,25 @@ public class TestaDicionario {
 	public void testaInsercao(){
 		String token = "HOLANDA";
 		try {
-			dic.inserir(token);
+			dic.inserir(token, "");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		assertTrue(dic.contemChave(token));
 		try {
-			dic.inserir(token);
+			dic.inserir(token, "");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			assertEquals("Mensagem invalida. ", "Chave existente. ", e1.getMessage());
 		}
 		try{
-			dic.inserir("");
+			dic.inserir("", "");
 		} catch (Exception e){
 			assertEquals("Mensagem invalida. ", "Chave invalida. ", e.getMessage());
 		}
 		try{
-			dic.inserir(null);
+			dic.inserir(null, "");
 		} catch (Exception e){
 			assertEquals("Mensagem invalida. ", "Chave invalida. ", e.getMessage());
 		}

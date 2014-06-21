@@ -1,4 +1,4 @@
-package com.br.italogas.me20141.project;
+package com.br.italogas.me20141project.main;
 
 public class Associacao<K, V> {
 

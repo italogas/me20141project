@@ -1,8 +1,10 @@
-package com.br.italogas.me20141.project;
+package com.br.italogas.me20141project.helper;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class LeitorDeArquivo {
@@ -26,19 +28,19 @@ public class LeitorDeArquivo {
 		throw new IOException();
 	}
 
-	public DicionarioListImpl lerArquivo(){
-		DicionarioListImpl dic = new DicionarioListImpl();
+	public List<String> lerArquivo(){
+		List<String> listaDeTokens = new ArrayList<String>();
 		while(sc.hasNext()){
 			String s = sc.next();
 			System.out.println(s);
 			try {
-				dic.inserir(s);
+				listaDeTokens.add(s);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		return dic;
+		return listaDeTokens;
 	}
 
 }
