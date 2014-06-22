@@ -1,0 +1,9 @@
+casa
+marido
+eu
+mouse
+cat
+dog
+asno
+vaca
+boi

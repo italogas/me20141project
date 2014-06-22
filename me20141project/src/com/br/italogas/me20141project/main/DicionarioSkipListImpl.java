@@ -39,6 +39,7 @@ public class DicionarioSkipListImpl<K, V> implements Dicionario<K, V> {
 	@Override
 	public void remover(K chave) {
 		// TODO Auto-generated method stub
+		//not implemented yet
 
 	}
 
@@ -48,6 +49,7 @@ public class DicionarioSkipListImpl<K, V> implements Dicionario<K, V> {
 	@Override
 	public boolean contemChave(K chave) {
 		// TODO Auto-generated method stub
+		//not implemented yet
 		return false;
 	}
 
@@ -57,6 +59,7 @@ public class DicionarioSkipListImpl<K, V> implements Dicionario<K, V> {
 	@Override
 	public boolean contemValor(V chave) {
 		// TODO Auto-generated method stub
+		//not implemented yet
 		return false;
 	}
 
@@ -66,6 +69,7 @@ public class DicionarioSkipListImpl<K, V> implements Dicionario<K, V> {
 	@Override
 	public int size() {
 		// TODO Auto-generated method stub
+		//not implemented yet
 		return 0;
 	}
 

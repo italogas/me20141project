@@ -31,31 +31,46 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Execuntado leitura de arquivo fonte: \n");
 		//lista de tokens obtida na leitura de arquivo
 		List<String> listaDeTokens = fileHelper1.lerArquivo();
 		System.out.println("\n");
+		
+		long memoriaLivreInicial = Runtime.getRuntime().freeMemory(); 
+		
 		//preenche dicionario com dados do arquivo fonte
+		long tempoInicialCarga = System.currentTimeMillis();
 		for(String s : listaDeTokens){
 			try {
 				dicionario.inserir(s.toUpperCase(), "");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// chaves exixtentes ou invalidas, n mostra excessao na saida
+				//e.printStackTrace();
 			}
 		}
+		long tempoFinalCarga = System.currentTimeMillis();
 		
-		System.out.println("Execuntado leitura de arquivo com consultas: \n");
 		//lista de tokens pra consultar no dicionario
 		List<String> listaConsulta = fileHelper2.lerArquivo();
 		System.out.println("\n");
+		long tempoInicialConsulta = System.currentTimeMillis();
 		for(String s : listaConsulta){
 			if(dicionario.contemChave(s.toUpperCase())){
-				System.out.printf("Dicionario contem: %s\n", s);
+				System.out.printf("%s: S\n", s);
 			} else {
-				System.out.printf("Dicionario nao contem: %s\n", s);
+				System.out.printf("%s: N\n", s);
 			}
 		}
+		long tempoFinalConsulta = System.currentTimeMillis();
+		long memoriaLivreFinal = Runtime.getRuntime().freeMemory();
+		System.out.println("\n(...)\n");
+		
+		System.out.printf("Tempo de carga: %d ms. \n", 
+				tempoFinalCarga - tempoInicialCarga);
+		System.out.printf("Tempo de consulta: %d ms. \n",
+				tempoFinalConsulta - tempoInicialConsulta);
+		System.out.printf("Consumo de memoria: %d bytes. \n",
+				memoriaLivreInicial - memoriaLivreFinal);
 		
 		try {
 			fileHelper1.fecharArquivo();

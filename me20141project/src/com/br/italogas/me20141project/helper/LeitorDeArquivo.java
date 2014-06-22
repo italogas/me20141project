@@ -12,6 +12,11 @@ public class LeitorDeArquivo {
 	private String file;
 	private Scanner sc; 
 	
+	/**
+	 * Operacaoes simples em arquivo de texto, construtor 
+	 * recebe o caminho do arquivo de entrada
+	 * @param file
+	 */
 	public LeitorDeArquivo(String file){
 		this.file = file;
 	}
@@ -32,7 +37,6 @@ public class LeitorDeArquivo {
 		List<String> listaDeTokens = new ArrayList<String>();
 		while(sc.hasNext()){
 			String s = sc.next();
-			System.out.println(s);
 			try {
 				listaDeTokens.add(s);
 			} catch (Exception e) {
