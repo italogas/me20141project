@@ -11,11 +11,11 @@ import com.br.italogas.me20141project.main.DicionarioListImpl;
 
 public class TestaDicionarioListImpl {
 
-	private DicionarioListImpl<String, String> dic;
+	private DicionarioListImpl dic;
 	
 	@Before
 	public void setUp() throws Exception {
-		dic = new DicionarioListImpl<String, String>();
+		dic = new DicionarioListImpl();
 		dic.inserir("ABACO", "");
 		dic.inserir("ABC", "");
 		dic.inserir("JEBAS", "");
@@ -23,7 +23,7 @@ public class TestaDicionarioListImpl {
 
 	@Test
 	public void testaInicializacao(){
-		DicionarioListImpl<String, String> dic2 = new DicionarioListImpl<String, String>();
+		DicionarioListImpl dic2 = new DicionarioListImpl();
 		assertEquals(0, dic2.size());
 	}
 	

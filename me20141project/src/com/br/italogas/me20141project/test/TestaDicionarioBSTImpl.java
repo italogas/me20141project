@@ -7,15 +7,15 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.br.italogas.me20141project.main.DicionarioSkipListImpl;
+import com.br.italogas.me20141project.main.DicionarioBSTImpl;
 
-public class TestaDicionarioSkiplListImpl {
+public class TestaDicionarioBSTImpl {
 
-private DicionarioSkipListImpl dic;
+private DicionarioBSTImpl dic;
 	
 	@Before
 	public void setUp() throws Exception {
-		dic = new DicionarioSkipListImpl();
+		dic = new DicionarioBSTImpl();
 		dic.inserir("ABACO", "");
 		dic.inserir("ABC", "");
 		dic.inserir("JEBAS", "");
@@ -23,7 +23,7 @@ private DicionarioSkipListImpl dic;
 
 	@Test
 	public void testaInicializacao(){
-		DicionarioSkipListImpl dic2 = new DicionarioSkipListImpl();
+		DicionarioBSTImpl dic2 = new DicionarioBSTImpl();
 		assertEquals(0, dic2.size());
 	}
 	
@@ -77,6 +77,5 @@ private DicionarioSkipListImpl dic;
 	public void testaContemChave1(){
 		dic.contemChave("");
 	}
-
 
 }

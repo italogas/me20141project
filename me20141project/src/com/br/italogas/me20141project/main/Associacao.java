@@ -1,6 +1,8 @@
 package com.br.italogas.me20141project.main;
 
-public class Associacao<K, V> {
+public class Associacao<K extends Comparable<K>, V extends Comparable<V>> 
+	implements Comparable<Associacao<K, V>> 
+	{
 
 	private K key;
 	private V value;
@@ -56,6 +58,18 @@ public class Associacao<K, V> {
 		} else if (!value.equals(other.value))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Associacao<K, V> arg0) {
+		// TODO Auto-generated method stub
+		if(this.key.compareTo(arg0.getKey()) > 1) {
+			return 1;
+		} else if(this.key.compareTo(arg0.getKey()) < 1){
+			return -1;
+		} else {
+			return 0;
+		}
 	}
 
 }

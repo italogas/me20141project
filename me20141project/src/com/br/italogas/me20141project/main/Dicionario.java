@@ -1,33 +1,39 @@
 package com.br.italogas.me20141project.main;
 
-public interface Dicionario<K, V> {
+/**
+ * It defines services that must be implemented by an concrete class
+ * It uses String as Key/Value
+ * @author Ítalo
+ *
+ */
+public interface Dicionario {
 
 	/**
 	 * Insere nova associação no dicionario.
 	 * @param chave
 	 * @throws Exception
 	 */
-	public void inserir(K chave, V value) throws Exception;
+	public void inserir(String chave, String value) throws Exception;
 
 	/**
 	 * Remove associacao existente do dicionario.
 	 * @param chave
 	 */
-	public void remover(K chave);
+	public void remover(String chave);
 
 	/**
 	 * Verifica se chave fornecida existe.
 	 * @param chave
 	 * @return true se o dicionario contem a chave forncida.
 	 */
-	public boolean contemChave(K chave);
+	public boolean contemChave(String chave);
 	
 	/**
 	 * Verifica se valor fornecido existe.
 	 * @param valor
 	 * @return
 	 */
-	public boolean contemValor(V chave);
+	public boolean contemValor(String chave);
 
 	/**
 	 * Retorna tamanho do dicionario.

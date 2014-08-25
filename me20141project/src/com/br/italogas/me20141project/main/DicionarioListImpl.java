@@ -4,37 +4,34 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class DicionarioListImpl<K, V> implements Dicionario<K, V> {
+public class DicionarioListImpl implements Dicionario {
 
-	private List<Associacao<K, V>> dic;
+	private List<Associacao<String, String>> dic;
 
 	/**
 	 * Implementação de dicionario com lista.
 	 */
 	public DicionarioListImpl(){
-		this.dic = new ArrayList<Associacao<K, V>>();
+		this.dic = new ArrayList<Associacao<String, String>>();
 	}
 
 	/* (non-Javadoc)
 	 * @see com.br.italogas.me20141.project.Dicionario#inserir(java.lang.String)
 	 */
 	@Override
-	public void inserir(K chave, V value) throws Exception {
+	public void inserir(String chave, String value) throws Exception {
 		// TODO Auto-generated method stub
-		if(chave == null || chave == "")
-			throw new IllegalArgumentException("Chave invalida. ");
-		
 		if(contemChave(chave))
 			throw new IllegalArgumentException("Chave existente. ");
 		
-		dic.add(new Associacao<K, V>(chave, value));
+		dic.add(new Associacao<String, String>(chave, value));
 	}
 
 	/* (non-Javadoc)
 	 * @see com.br.italogas.me20141.project.Dicionario#remover(java.lang.String)
 	 */
 	@Override
-	public void remover(K chave){
+	public void remover(String chave){
 		//not implemented
 		return;
 	}
@@ -43,12 +40,12 @@ public class DicionarioListImpl<K, V> implements Dicionario<K, V> {
 	 * @see com.br.italogas.me20141.project.Dicionario#contemChave(java.lang.String)
 	 */
 	@Override
-	public boolean contemChave(K chave) {
+	public boolean contemChave(String chave) {
 		// TODO Auto-generated method stub
 		if(chave == null || chave == "")
 			throw new IllegalArgumentException("Chave invalida. ");
 		
-		Iterator<Associacao<K, V>> iterator = dic.iterator();
+		Iterator<Associacao<String, String>> iterator = dic.iterator();
 		while(iterator.hasNext()){
 			if(iterator.next().getKey().equals(chave))
 				return true;
@@ -83,25 +80,9 @@ public class DicionarioListImpl<K, V> implements Dicionario<K, V> {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DicionarioListImpl<?, ?> other = (DicionarioListImpl<?, ?>) obj;
-		if (dic == null) {
-			if (other.dic != null)
-				return false;
-		} else if (!dic.equals(other.dic))
-			return false;
-		return true;
-	}
 
 	@Override
-	public boolean contemValor(V chave) {
+	public boolean contemValor(String chave) {
 		// TODO Auto-generated method stub
 		return false;
 	}

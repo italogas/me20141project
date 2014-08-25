@@ -3,33 +3,30 @@
  */
 package com.br.italogas.me20141project.main;
 
-import com.br.italogas.me20141project.skiplist.SkipListImpl;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 /**
  * @author Ítalo
  *
  */
-public class DicionarioSkipListImpl<K, V> implements Dicionario<K, V> {
+public class DicionarioSkipListImpl implements Dicionario {
 	
-	SkipListImpl<Associacao<K, V>> dic;
+	ConcurrentSkipListMap<String, String> dic;
 	
 	public DicionarioSkipListImpl(){
-		dic = new SkipListImpl<Associacao<K, V>>(Integer.MAX_VALUE);
+		dic = new ConcurrentSkipListMap<>();
 	}
 
 	/* (non-Javadoc)
 	 * @see com.br.italogas.me20141project.main.Dicionario#inserir(java.lang.Object, java.lang.Object)
 	 */
 	@Override
-	public void inserir(K chave, V value) throws Exception {
+	public void inserir(String chave, String value) throws Exception {
 		// TODO Auto-generated method stub
-		if(chave == null || chave == "")
-			throw new IllegalArgumentException("Chave invalida. ");
-		
 		if(contemChave(chave))
 			throw new IllegalArgumentException("Chave existente. ");
 		
-		dic.insert(0, new Associacao<K, V>(chave, value));
+		dic.put(chave, value);
 
 	}
 
@@ -37,7 +34,7 @@ public class DicionarioSkipListImpl<K, V> implements Dicionario<K, V> {
 	 * @see com.br.italogas.me20141project.main.Dicionario#remover(java.lang.Object)
 	 */
 	@Override
-	public void remover(K chave) {
+	public void remover(String chave) {
 		// TODO Auto-generated method stub
 		//not implemented yet
 
@@ -47,17 +44,20 @@ public class DicionarioSkipListImpl<K, V> implements Dicionario<K, V> {
 	 * @see com.br.italogas.me20141project.main.Dicionario#contemChave(java.lang.Object)
 	 */
 	@Override
-	public boolean contemChave(K chave) {
+	public boolean contemChave(String chave) {
 		// TODO Auto-generated method stub
 		//not implemented yet
-		return false;
+		if(chave == null || chave == "")
+			throw new IllegalArgumentException("Chave invalida. ");
+		
+		return (dic.containsKey(chave)) ? true : false;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.br.italogas.me20141project.main.Dicionario#contemValor(java.lang.Object)
 	 */
 	@Override
-	public boolean contemValor(V chave) {
+	public boolean contemValor(String chave) {
 		// TODO Auto-generated method stub
 		//not implemented yet
 		return false;
