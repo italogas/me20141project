@@ -13,18 +13,50 @@ import com.br.italogas.me20141project.helper.LeitorDeArquivo;
  */
 public class Main {
 	
-	public static final String ARQUIVO_FONTE = "listaPalavrasPT.txt";
+	//public static final String ARQUIVO_FONTE = "listaPalavrasPT.txt";
 	
-	public static final String ARQUIVO_CONSULTAS = "consultasEN.txt";
+	//public static final String ARQUIVO_CONSULTAS = "consultasEN.txt";
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
-		DicionarioListImpl dicionarioLista = new DicionarioListImpl();
+		Dicionario dicionario = null;
+		String arquivoFonte = null;
+		String arquivoConsultas = null;
+		
+		if(args[0].equals("list")){
+			dicionario = new DicionarioListImpl();
+		} else if (args[0].equals("hashTable")){
+			dicionario = new DicionarioHashTableImpl();
+		} else if (args[0].equals("skiplist")){
+			dicionario = new DicionarioSkipListImpl();
+		} else {
+			System.out.println("Estrutura invalida");
+			throw new Exception("Estrutura invalida");
+		}
+		
+		if(args[1] == "" || args[1] == null){
+			System.out.println("Arquivo fonte invalido");
+			throw new Exception("Arquivo fonte invalido");
+		} else {
+			arquivoFonte = args[1];
+		}
+		
+		if(args[2] == "" || args[2] == null){
+			System.out.println("Arquivo de consultas invalido");
+			throw new Exception("Arquivo de consultas invalido");
+		} else {
+			arquivoConsultas = args[2];
+			
+		}
+		
+		
+		
+		/*DicionarioListImpl dicionarioLista = new DicionarioListImpl();
 		DicionarioSkipListImpl dicionarioSkipList = new DicionarioSkipListImpl();
-		DicionarioBSTImpl dicionarioBst = new DicionarioBSTImpl();
+		DicionarioBSTImpl dicionarioBst = new DicionarioBSTImpl(); */
 		
-		LeitorDeArquivo fileHelper1 = new LeitorDeArquivo(ARQUIVO_FONTE);
-		LeitorDeArquivo fileHelper2 = new LeitorDeArquivo(ARQUIVO_CONSULTAS);
+		LeitorDeArquivo fileHelper1 = new LeitorDeArquivo(arquivoFonte);
+		LeitorDeArquivo fileHelper2 = new LeitorDeArquivo(arquivoConsultas);
 		
 		try {
 			fileHelper1.abrirArquivo();
@@ -34,36 +66,40 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		//lista de tokens obtida na leitura de arquivo
+		//get token list from file
 		List<String> listaDeTokens = fileHelper1.lerArquivo();
 		System.out.println("\n");
 		
-		long memoriaLivreInicial = Runtime.getRuntime().freeMemory(); 
-		
-		int tempoCargaLista = inserirPalavrasNoDicionario(listaDeTokens, dicionarioLista);
-		int tempoCargaSkipList = inserirPalavrasNoDicionario(listaDeTokens, dicionarioSkipList);
-		int tempoCargaBST = inserirPalavrasNoDicionario(listaDeTokens, dicionarioBst);
-		
-		//lista de tokens pra consultar no dicionario
+		//get token list from file
 		List<String> listaConsulta = fileHelper2.lerArquivo();
 		System.out.println("\n");
-		long tempoInicialConsulta = System.currentTimeMillis();
-		for(String s : listaConsulta){
-			if(dicionarioLista.contemChave(s.toUpperCase())){
-				System.out.printf("%s: S\n", s);
-			} else {
-				System.out.printf("%s: N\n", s);
-			}
-		}
-		long tempoFinalConsulta = System.currentTimeMillis();
+		
+		long memoriaLivreInicial = Runtime.getRuntime().freeMemory();
+		
+		float tempoCargaLista = (float) inserirPalavrasNoDicionario(listaDeTokens, dicionario) / 1000;
+		//float tempoCargaLista = inserirPalavrasNoDicionario(listaDeTokens, dicionario) / 10000;
+		
+		/*
+		long memoriaCargaLista = memoriaLivreFinal - memoriaLivreInicial;
+		
+		long tempoCargaSkipList = inserirPalavrasNoDicionario(listaDeTokens, dicionarioSkipList);
+		
+		long tempoCargaBST = inserirPalavrasNoDicionario(listaDeTokens, dicionarioBst);
+		*/
+		
+		//long tempoConsulta = consultarPalavrasNoDicionario(listaConsulta, dicionario) / 1000;
+		float tempoConsulta = (float) consultarPalavrasNoDicionario(listaConsulta, dicionario) / 1000;
+		//float tempoConsulta = consultarPalavrasNoDicionario(listaConsulta, dicionario) / 10000;
+		
 		long memoriaLivreFinal = Runtime.getRuntime().freeMemory();
+		
 		System.out.println("\n(...)\n");
 		
-		System.out.printf("Tempo de carga: %d ms. \n", tempoCargaLista);
-		System.out.printf("Tempo de consulta: %d ms. \n",
-				tempoFinalConsulta - tempoInicialConsulta);
-		System.out.printf("Consumo de memoria: %d bytes. \n",
-				memoriaLivreInicial - memoriaLivreFinal);
+		//long memoria = (memoriaLivreFinal - memoriaLivreInicial) / 1000000;
+		float memoria = (float) (memoriaLivreInicial - memoriaLivreFinal) / 1000000;
+		System.out.printf("Tempo de carga: %f s. \n", tempoCargaLista);
+		System.out.printf("Tempo de consulta: %f s. \n", tempoConsulta);
+		System.out.printf("Consumo de memoria: %f MB (de acordo com o SI). \n", memoria);
 		
 		try {
 			fileHelper1.fecharArquivo();
@@ -75,7 +111,23 @@ public class Main {
 
 	}
 
-	private static int inserirPalavrasNoDicionario(List<String> listaDeTokens, Dicionario dicionario) {
+	private static long consultarPalavrasNoDicionario(
+			List<String> listaConsulta, Dicionario dicionario) {
+		// TODO Auto-generated method stub
+		long tempoInicialConsulta = System.currentTimeMillis();
+		for(String s : listaConsulta){
+			if(dicionario.contemChave(s.toUpperCase())){
+				System.out.printf("%s: S\n", s);
+			} else {
+				System.out.printf("%s: N\n", s);
+			}
+		}
+		long tempoFinalConsulta = System.currentTimeMillis();
+		return tempoFinalConsulta - tempoInicialConsulta;
+		
+	}
+
+	private static long inserirPalavrasNoDicionario(List<String> listaDeTokens, Dicionario dicionario) {
 		// TODO Auto-generated method stub
 		//preenche dicionario com dados do arquivo fonte
 		long tempoInicialCarga = System.currentTimeMillis();
@@ -90,7 +142,7 @@ public class Main {
 		}
 		long tempoFinalCarga = System.currentTimeMillis();
 				
-		return 0;
+		return tempoFinalCarga - tempoInicialCarga;
 	}
 
 }

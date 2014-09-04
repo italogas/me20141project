@@ -7,15 +7,15 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.br.italogas.me20141project.main.DicionarioBSTImpl;
+import com.br.italogas.me20141project.main.DicionarioHashTableImpl;
 
-public class TestaDicionarioBSTImpl {
+public class TestaDicionarioHashTableImpl {
 
-private DicionarioBSTImpl dic;
+private DicionarioHashTableImpl dic;
 	
 	@Before
 	public void setUp() throws Exception {
-		dic = new DicionarioBSTImpl();
+		dic = new DicionarioHashTableImpl();
 		dic.inserir("ABACO", "");
 		dic.inserir("ABC", "");
 		dic.inserir("JEBAS", "");
@@ -23,7 +23,7 @@ private DicionarioBSTImpl dic;
 
 	@Test
 	public void testaInicializacao(){
-		DicionarioBSTImpl dic2 = new DicionarioBSTImpl();
+		DicionarioHashTableImpl dic2 = new DicionarioHashTableImpl();
 		assertEquals(0, dic2.size());
 	}
 	
